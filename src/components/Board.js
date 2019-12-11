@@ -26,9 +26,9 @@ class Board extends Component {
     });
 
     return (
-      <div>
+      <div >
         <h3>Board: {this.props.boardName}</h3>
-        <section>{cards}</section>
+        <section className="board">{cards}</section>
       </div>
     )
   }
