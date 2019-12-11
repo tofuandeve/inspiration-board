@@ -12,16 +12,27 @@ class Board extends Component {
     super();
 
     this.state = {
-      // cards: [],
-      cards: CARD_DATA.cards,
+      cards: [],
     };
   }
 
+  componentDidMount() {
+    axios.get(this.props.url).then((response) => {
+      this.setState({
+        cards: response.data,
+      })
+    }).catch((error) =>{
+      this.setState({
+        error: 'Sorry, something went wrong',
+      })
+    })
+  }
+
   render() {
-    const cards = this.state.cards.map((card, i) => {
+    const cards = this.state.cards.map((cardItem, i) => {
       return (
         <section key={i}>
-          <Card cardData={card}></Card>
+          <Card cardData={cardItem.card}></Card>
         </section>)
     });
 
