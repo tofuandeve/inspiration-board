@@ -17,14 +17,11 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    axios.get(this.props.url).then((response) => {
-      this.setState({
-        cards: response.data,
-      })
+    const cardUrl = this.props.url + "/"+ this.props.boardName + "/cards";
+    axios.get(cardUrl).then((response) => {
+      this.setState({ cards: response.data })
     }).catch((error) =>{
-      this.setState({
-        error: 'Sorry, something went wrong',
-      })
+      this.setState({ error: 'Sorry, something went wrong' })
     })
   }
 
