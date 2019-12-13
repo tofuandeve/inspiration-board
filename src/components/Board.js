@@ -35,6 +35,7 @@ class Board extends Component {
     return (
       <div >
         <h3>Board: {this.props.boardName}</h3>
+        <NewCardForm></NewCardForm>
         <button
           type="button"
           className="btn btn-danger"
