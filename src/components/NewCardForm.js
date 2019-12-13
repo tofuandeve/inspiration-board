@@ -8,30 +8,61 @@ const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_
 class NewCardForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      text: "",
+      emoji: "",
+    };
+  }
 
+  onInputChange = (event) => {
+    const updatedState = {};
+    const field = event.target.name;
+    const value = event.target.value;
+
+    updatedState[field] = value;
+    this.setState(updatedState);
+  }
+
+  addNewCard = (event) => {
+    event.preventDefault();
+
+    this.props.addCardCallBack({ card: this.state });
+    this.setState({
+      text: "",
+      emoji: "",
+    })
   }
 
   render() {
     const emojis = EMOJI_LIST.map((symbol, i) => {
       return (
-        <option key={i} value={symbol}>{emoji.getUnicode(symbol)}</option>
+        <option
+          key={i}
+          value={symbol}
+        >{emoji.getUnicode(symbol)}</option>
       );
     });
 
     return (
       <section className="new-card-form">
         <h3 className="new-card-form__header">Add new card</h3>
-        <form className="new-card-form__form">
-          <label className="new-card-form__form-label"> Message </label>
+        <form onSubmit={this.addNewCard} className="new-card-form__form">
+          <label className="new-card-form__form-label"> text </label>
           <textarea className="new-card-form__form-textarea"
-            name="content"
-            id="content"
+            name="text"
+            id="text"
             type="text"
+            onChange={this.onInputChange}
+            value={this.state.text}
           >
           </textarea>
 
           <label className="new-card-form__form-label"> Emoji </label>
-          <select className="new-card-form__form-select">
+          <select className="new-card-form__form-select"
+            value={this.state.emoji}
+            name="emoji"
+            onChange={this.onInputChange}
+            id="emoji">
             {emojis}
           </select>
 

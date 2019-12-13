@@ -15,6 +15,12 @@ class Board extends Component {
     };
   }
 
+  addCard = (card) => {
+    const cards = this.state.cards;
+    cards.push(card);
+    this.setState({ cards, })
+  }
+
   componentDidMount() {
     const cardUrl = this.props.url + "/"+ this.props.boardName + "/cards";
     axios.get(cardUrl).then((response) => {
@@ -35,7 +41,7 @@ class Board extends Component {
     return (
       <div >
         <h3>Board: {this.props.boardName}</h3>
-        <NewCardForm></NewCardForm>
+        <NewCardForm addCardCallBack={this.addCard}></NewCardForm>
         <button
           type="button"
           className="btn btn-danger"
