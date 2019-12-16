@@ -22,7 +22,7 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    const cardUrl = this.props.url + "/"+ this.props.boardName + "/cards";
+    const cardUrl = `${this.props.url}/${this.props.boardName}/cards`;
     axios.get(cardUrl).then((response) => {
       this.setState({ cards: response.data })
     }).catch((error) =>{
@@ -39,18 +39,12 @@ class Board extends Component {
     });
 
     return (
-      <div >
+      <section>
         <h3>Board: {this.props.boardName}</h3>
         <NewCardForm addCardCallBack={this.addCard}></NewCardForm>
-        <button
-          type="button"
-          className="btn btn-danger"
-          aria-label="Close"
-        >
-          Delete board
-        </button>
+        
         <section className="board">{cards}</section>
-      </div>
+      </section>
     )
   }
 

@@ -22,21 +22,15 @@ class App extends Component {
   }
 
   render() {
-    const allBoards = this.state.boards.map((boardItem, i) => {
-      return (
-        <section key={i}>
-          <Board
-            url="https://inspiration-board.herokuapp.com/boards"
-            boardName={boardItem.board.name}></Board>
-        </section>);
-    });
-
     return (
       <section>
         <header className="header">
           <h1 className="header__h1"><span className="header__text">Inspiration Board</span></h1>
         </header>
-        {allBoards}
+        <Board
+          url="https://inspiration-board.herokuapp.com/boards"
+          boardName="Ada-Lovelace">
+        </Board>
       </section>
     );
   }
