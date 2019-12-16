@@ -16,8 +16,7 @@ class Board extends Component {
   }
 
   removeCard = (cardId) => {
-    const cardsUrl = "https://inspiration-board.herokuapp.com/cards"
-    axios.delete(`${cardsUrl}/${cardId}`)
+    axios.delete(`${this.props.url}/cards/${cardId}`)
       .then((response) => {
         const cards = this.state.cards.filter((cardItem) => cardItem.card.id !== cardId);
         this.setState({ cards, });
@@ -28,7 +27,7 @@ class Board extends Component {
   }
 
   addCard = (card) => {
-    const url = `https://inspiration-board.herokuapp.com/boards/${this.props.boardName}/cards`
+    const url = `${this.props.url}/boards/${this.props.boardName}/cards`
     axios.post(url, card)
       .then((response) => {
         const updatedCards = this.state.cards;
@@ -46,7 +45,7 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    const cardUrl = `${this.props.url}/${this.props.boardName}/cards`;
+    const cardUrl = `${this.props.url}/boards/${this.props.boardName}/cards`;
     axios.get(cardUrl).then((response) => {
       this.setState({ cards: response.data })
     }).catch((error) => {
@@ -78,7 +77,7 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired,
 };
-
 export default Board;
