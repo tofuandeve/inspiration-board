@@ -28,9 +28,21 @@ class Board extends Component {
   }
 
   addCard = (card) => {
-    const cards = this.state.cards;
-    cards.push(card);
-    this.setState({ cards, })
+    const url = `https://inspiration-board.herokuapp.com/boards/${this.props.boardName}/cards`
+    axios.post(url, card)
+      .then((response) => {
+        const updatedCards = this.state.cards;
+        updatedCards.push(response.data);
+        this.setState({
+          cards: updatedCards,
+          error: "",
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          error: error.message,
+        });
+      });
   }
 
   componentDidMount() {
