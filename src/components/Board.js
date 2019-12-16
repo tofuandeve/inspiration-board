@@ -16,11 +16,15 @@ class Board extends Component {
   }
 
   removeCard = (cardId) => {
-    const cards = this.state.cards.filter((cardItem) => {
-      return cardItem.card.id !== cardId;
-    });
-
-    this.setState({ cards });
+    const cardsUrl = "https://inspiration-board.herokuapp.com/cards"
+    axios.delete(`${cardsUrl}/${cardId}`)
+      .then((response) => {
+        const cards = this.state.cards.filter((cardItem) => cardItem.card.id !== cardId);
+        this.setState({ cards, });
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
   }
 
   addCard = (card) => {
