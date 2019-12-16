@@ -5,6 +5,10 @@ import emoji from 'emoji-dictionary';
 import './Card.css';
 
 class Card extends Component {
+  deleteCard = () => {
+    this.props.removeCardCallBack(this.props.cardData.id);
+  }
+
   render() {
     const symbol = this.props.cardData.emoji;
     const text = this.props.cardData.text;
@@ -17,6 +21,7 @@ class Card extends Component {
             className="card__delete"
             type="button"
             aria-label="Close"
+            onClick={this.deleteCard}
           >
             Delete
         </button>

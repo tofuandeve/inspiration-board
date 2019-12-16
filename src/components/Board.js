@@ -15,6 +15,14 @@ class Board extends Component {
     };
   }
 
+  removeCard = (cardId) => {
+    const cards = this.state.cards.filter((cardItem) => {
+      return cardItem.card.id !== cardId;
+    });
+
+    this.setState({ cards });
+  }
+
   addCard = (card) => {
     const cards = this.state.cards;
     cards.push(card);
@@ -25,7 +33,7 @@ class Board extends Component {
     const cardUrl = `${this.props.url}/${this.props.boardName}/cards`;
     axios.get(cardUrl).then((response) => {
       this.setState({ cards: response.data })
-    }).catch((error) =>{
+    }).catch((error) => {
       this.setState({ error: 'Sorry, something went wrong' })
     })
   }
@@ -34,7 +42,10 @@ class Board extends Component {
     const cards = this.state.cards.map((cardItem, i) => {
       return (
         <section key={i}>
-          <Card cardData={cardItem.card}></Card>
+          <Card
+            cardData={cardItem.card}
+            removeCardCallBack={this.removeCard}>
+          </Card>
         </section>)
     });
 
@@ -42,7 +53,7 @@ class Board extends Component {
       <section>
         <h3>Board: {this.props.boardName}</h3>
         <NewCardForm addCardCallBack={this.addCard}></NewCardForm>
-        
+
         <section className="board">{cards}</section>
       </section>
     )
