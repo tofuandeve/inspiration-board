@@ -34,7 +34,7 @@ class Card extends Component {
 Card.propTypes = {
   removeCardCallBack: PropTypes.func,
   cardData: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     text: PropTypes.string,
     emoji: PropTypes.string,
   })

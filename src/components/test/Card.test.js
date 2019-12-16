@@ -4,7 +4,7 @@ import Card from '../Card.js';
 import cards from '../../data/card-data.json';
 
 let testCard = {
-    id: "1",
+    id: 1,
     ...cards.cards[0]
 };
 
