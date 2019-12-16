@@ -11,6 +11,7 @@ class Board extends Component {
     super();
 
     this.state = {
+      boardName: "",
       cards: [],
     };
   }
@@ -43,14 +44,28 @@ class Board extends Component {
         });
       });
   }
-
-  componentDidMount() {
+  
+  getUpdatedData = () => {
     const cardUrl = `${this.props.url}/boards/${this.props.boardName}/cards`;
     axios.get(cardUrl).then((response) => {
-      this.setState({ cards: response.data })
+      this.setState({
+        cards: response.data,
+        boardName: this.props.boardName,
+      })
     }).catch((error) => {
       this.setState({ error: 'Sorry, something went wrong' })
     })
+  }
+
+  componentDidMount() {
+    this.getUpdatedData();
+  }
+
+  componentDidUpdate() {
+    if (this.state.boardName !== this.props.boardName) {
+      console.log("UPDATING...")
+      this.getUpdatedData();
+    }
   }
 
   render() {

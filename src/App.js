@@ -9,6 +9,7 @@ class App extends Component {
 
     this.state = {
       boards: [],
+      selectedBoard: 'eve',
     };
   }
 
@@ -21,16 +22,44 @@ class App extends Component {
     })
   }
 
+  onInputChange = (event) => {
+    const updatedState = {};
+    const field = event.target.name;
+    const value = event.target.value;
+
+    updatedState[field] = value;
+    this.setState(updatedState);
+  }
+
   render() {
+    const allBoards = this.state.boards.map((boardItem, i) => {
+      return (<option key={i} value={boardItem.board.name}>{boardItem.board.name}</option>);
+    });
+
+
     return (
       <section>
         <header className="header">
           <h1 className="header__h1"><span className="header__text">Inspiration Board</span></h1>
         </header>
-        <Board
-          url="https://inspiration-board.herokuapp.com/boards"
-          boardName="Ada-Lovelace">
-        </Board>
+
+        <section >
+          <label> Choose a board </label>
+          <select
+            className="new-board-select"
+            name="selectedBoard"
+            value={this.state.selectedBoard}
+            onChange={this.onInputChange}>
+            {allBoards}
+          </select>
+        </section>
+
+        <section>
+          <Board
+            url="https://inspiration-board.herokuapp.com"
+            boardName={this.state.selectedBoard}>
+          </Board>
+        </section>
       </section>
     );
   }
